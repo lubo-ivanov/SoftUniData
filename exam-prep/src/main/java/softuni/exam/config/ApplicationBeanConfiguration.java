@@ -11,21 +11,16 @@ import softuni.exam.util.ValidationUtil;
 @Configuration
 public class ApplicationBeanConfiguration {
 
-	//ToDo
 
     @Bean
     public Gson gson() {
-        return null;
+        return new GsonBuilder().setPrettyPrinting().create();
     }
 
-    @Bean
-    public ValidationUtil validationUtil() {
-        return null;
-    }
 
     @Bean
     public ModelMapper modelMapper() {
-        return null;
+        return new ModelMapper();
     }
 
 }
