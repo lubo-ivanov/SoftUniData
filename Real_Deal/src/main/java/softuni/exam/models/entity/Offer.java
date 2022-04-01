@@ -1,5 +1,8 @@
 package softuni.exam.models.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.engine.FetchStrategy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -55,7 +58,7 @@ public class Offer extends BaseEntity {
         this.addedOn = addedOn;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     public Car getCar() {
         return car;
     }
@@ -64,7 +67,7 @@ public class Offer extends BaseEntity {
         this.car = car;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     public Seller getSeller() {
         return seller;
     }

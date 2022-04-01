@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softuni.exam.models.dto.CarSeedDto;
+import softuni.exam.models.dto.CarViewDto;
 import softuni.exam.models.entity.Car;
 import softuni.exam.repository.CarRepository;
 import softuni.exam.service.CarService;
@@ -13,7 +14,10 @@ import softuni.exam.util.ValidationUtil;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.Format;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -62,6 +66,12 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public String getCarsOrderByPicturesCountThenByMake() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        carRepository.findAllCarsOrderByPicturesCountDescThenByMake()
+                .stream()
+                .map(car -> modelMapper.map(car, CarViewDto.class))
+                .forEach(stringBuilder::append);
+
+        return stringBuilder.toString().trim();
     }
 }

@@ -1,22 +1,19 @@
-package softuni.exam.models.entity;
+package softuni.exam.models.dto;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import softuni.exam.models.entity.Picture;
+
 import java.util.Set;
 
-@Entity
-@Table(name = "cars", uniqueConstraints = @UniqueConstraint(columnNames = {"make", "model", "kilometers"}))
-public class Car extends BaseEntity {
+public class CarViewDto {
     private String make;
     private String model;
     private Integer kilometers;
-    private LocalDate registeredOn;
+    private String registeredOn;
     private Set<Picture> pictures;
 
-    public Car() {
+    public CarViewDto() {
     }
 
-    @Column
     public String getMake() {
         return make;
     }
@@ -25,7 +22,6 @@ public class Car extends BaseEntity {
         this.make = make;
     }
 
-    @Column
     public String getModel() {
         return model;
     }
@@ -34,7 +30,6 @@ public class Car extends BaseEntity {
         this.model = model;
     }
 
-    @Column
     public Integer getKilometers() {
         return kilometers;
     }
@@ -43,21 +38,33 @@ public class Car extends BaseEntity {
         this.kilometers = kilometers;
     }
 
-    @Column(name = "registered_on")
-    public LocalDate getRegisteredOn() {
+    public String getRegisteredOn() {
         return registeredOn;
     }
 
-    public void setRegisteredOn(LocalDate registeredOn) {
+    public void setRegisteredOn(String registeredOn) {
         this.registeredOn = registeredOn;
     }
 
-    @OneToMany(mappedBy = "car", fetch = FetchType.EAGER)
     public Set<Picture> getPictures() {
         return pictures;
     }
 
     public void setPictures(Set<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                Car make - %s, model - %s
+                	Kilometers - %d
+                	Registered on - %s
+                	Number of pictures - %d
+                
+                """, this.getMake(), this.getModel(),
+                this.getKilometers(),
+                this.getRegisteredOn(),
+                this.getPictures().size());
     }
 }

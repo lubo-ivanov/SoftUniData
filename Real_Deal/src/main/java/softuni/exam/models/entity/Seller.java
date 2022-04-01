@@ -3,6 +3,7 @@ package softuni.exam.models.entity;
 import softuni.exam.models.enums.Rating;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "sellers")
@@ -12,6 +13,7 @@ public class Seller extends BaseEntity{
     private String email;
     private Rating rating;
     private String town;
+    private Set<Offer> offers;
 
     public Seller() {
     }
@@ -60,5 +62,14 @@ public class Seller extends BaseEntity{
 
     public void setTown(String town) {
         this.town = town;
+    }
+
+    @OneToMany(targetEntity = Offer.class, mappedBy = "seller", fetch = FetchType.EAGER)
+    public Set<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
     }
 }
